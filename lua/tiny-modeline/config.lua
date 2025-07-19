@@ -20,32 +20,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 local M = {}
 
 ---@class TinyModelineSettings
----@style the modeline style, can be separated (first form from help) and set (second form from help)
----@field prefix string the prefix to use for the modeline, one of vi, vim or ex. Default: vim
----@field include table table with all opts and flags to include
----@field separator string the separator to use, either blank `' '` or colon `":"`. Default: blank
----@field add_default_keybindings boolean Whether to add default keybindings. Default: true
 local defaults = {
+    ---@type string
+    ---the modeline style, can be separated (first form from help) and set (second form from help)
 	style = 'set',
+    ---@type string
+    ---the separator to use, either blank `' '` or colon `":"`. Default: blank
 	separator = ' ',
+    ---@type string
+    ---prefix string the prefix to use for the modeline, one of vi, vim or ex. Default: vim
 	prefix = 'vim',
+    ---@class TinyModelineSettings.include
+    ---a table with opts and flags to include
 	include = {
+        ---@type table
+        ---the list of options to include, use short forms
         opts = {
 	    	'ts',
     		'sw',
             'tw',
         },
+        ---@type table
+        ---the list of flags to add, use short forms
         flags = {
             'et',
         }
 	},
+    ---@type boolean
+    ---add optional spaces where possible, Default: true
 	add_space = true,
+    ---@type boolean
+    ---boolean Whether to add default keybindings. Default: true
     add_default_keybindings = true,
 }
 
 ---@type TinyModelineSettings
 M.config = defaults
 
+---@type function
+---initializes the configuration and applies usersettings
 ---@param args TinyModelineSettings?
 ---@return TinyModelineSettings
 M.init = function(args)
