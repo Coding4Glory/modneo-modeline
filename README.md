@@ -26,6 +26,7 @@ return { "Coding4Glory/tiny-modeline.nvim",
         },
         add_space = true,
         add_default_keybindings = true,
+        update_on_save = false,
     } 
 }
 ```
@@ -37,6 +38,7 @@ return { "Coding4Glory/tiny-modeline.nvim",
 :ModelineAppend[!]     Appends the modeline if missing. If bang is present a
                        modeline will be added regardless of an existing
 
+                                                   *tiny-modeline.nvim-update*
 :ModelineUpdate        Replaces existing or appends a new modeline with current
                        settings
 ```

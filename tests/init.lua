@@ -24,3 +24,5 @@ vim.opt.rtp:append(plenary_path)
 vim.opt.rtp:append('.')
 
 vim.cmd('runtime plugin/plenary.vim')
+
+-- vim: set et ts=4 sw=4 tw=0:

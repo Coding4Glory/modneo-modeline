@@ -43,7 +43,18 @@ M.setup = function(modeline)
             vim.api.nvim_set_keymap('n', keys, cmd, { noremap = true, silent = true, desc = desc })
         end
 
-        add_keymap('<leader>am', ':ModelineUpdate<CR>', '[a]ppend or update modeline')
+        add_keymap('<leader>mu', ':ModelineUpdate<CR>', 'modeline update')
+    end
+
+    if modeline.config.update_on_write then
+        vim.api.nvim_create_autocmd("BufWrite",
+            {
+                pattern = '*.*',
+                command = 'ModelineUpdate',
+                desc = 'update modline on write',
+                group = vim.api.nvim_create_augroup('tinymodeline_autoupdate', { clear = true })
+            }
+        )
     end
 end
 

@@ -53,6 +53,10 @@ local defaults = {
     ---@type boolean
     ---boolean Whether to add default keybindings. Default: true
     add_default_keybindings = true,
+    ---@type boolean
+    ---defines if the modeline shall be automatically updated on save
+    ---Default: false
+    update_on_write = false,
 }
 
 ---@type function

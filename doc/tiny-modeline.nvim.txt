@@ -38,6 +38,7 @@ Setupwith Lazy
             },
             add_space = true,
             add_default_keybindings = true,
+            update_on_save = false,
         } 
     }
 <
@@ -49,6 +50,7 @@ COMMANDS                     *tiny-modeline.nvim-tiny.nvim-modeline-commands-*
 :ModelineAppend[!]     Appends the modeline if missing. If bang is present a
                        modeline will be added regardless of an existing
 
+                                                   *tiny-modeline.nvim-update*
 :ModelineUpdate        Replaces existing or appends a new modeline with current
                        settings
 
