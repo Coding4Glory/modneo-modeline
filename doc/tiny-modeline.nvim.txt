@@ -1,16 +1,18 @@
-*tiny-modeline.nvim.txt*       For neovim-0.12       Last change: 2025 July 19
+*tiny-modeline.nvim.txt*       For neovim-0.12       Last change: 2025 July 20
 
 ==============================================================================
 Table of Contents                       *tiny-modeline.nvim-table-of-contents*
 
 1. tiny.nvim modeline                  |tiny-modeline.nvim-tiny.nvim-modeline|
   - Setup and Configuration |tiny-modeline.nvim-tiny.nvim-modeline-setup-and-configuration-|
+  - Commands                 |tiny-modeline.nvim-tiny.nvim-modeline-commands-|
+  - KnownIssues           |tiny-modeline.nvim-tiny.nvim-modeline-knownissues-|
   - Contribution         |tiny-modeline.nvim-tiny.nvim-modeline-contribution-|
 
 ==============================================================================
 1. tiny.nvim modeline                  *tiny-modeline.nvim-tiny.nvim-modeline*
 
-A simple plugin to add and update modelines
+A simple plugin to add and update modelines with settings from current buffer.
 
 
 SETUP AND CONFIGURATION *tiny-modeline.nvim-tiny.nvim-modeline-setup-and-configuration-*
@@ -41,21 +43,23 @@ Setupwith Lazy
 <
 
 
-                                        *tiny-modeline.nvim-:ModelineAppend*
+COMMANDS                     *tiny-modeline.nvim-tiny.nvim-modeline-commands-*
+
+                                                   *tiny-modeline.nvim-append*
+:ModelineAppend[!]     Appends the modeline if missing. If bang is present a
+                       modeline will be added regardless of an existing
+
+:ModelineUpdate        Replaces existing or appends a new modeline with current
+                       settings
 
 
-:ModelineAppend[!]                     Appends the modeline if missing.
-                                       If bang is present a modeline will
-				       be added regardless of existing
+KNOWNISSUES               *tiny-modeline.nvim-tiny.nvim-modeline-knownissues-*
 
+Checksonly the last line. Will fail or cause unexpected behaviour in following
+situation (which are supported by vim/neovim):
 
-                                        *tiny-modeline.nvim-:ModelineUpdate*
-
-
-:ModelineUpdate                        Replaces existing or appends a new
-                                       modeline with current settings
-
-
+- Last line is an empty line after modeline
+- Modeline is at the top of the file. Allowed by spec, but not seen in the wild.
 
 
 CONTRIBUTION             *tiny-modeline.nvim-tiny.nvim-modeline-contribution-*

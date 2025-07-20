@@ -59,14 +59,20 @@ M.has_modeline = function()
     return vim.startswith(last_line, compare_str)
 end
 
+---checks if a space can or shall be added
+---@param config TinyModelineSettings
+---@return string either a space or an empty string
+local function spacer(config)
+    if config.style ~= 'set' then return '' end
+    return (config.add_space and ' ' or '')
+end
+
 ---@type function
 ---@return string the modeline content
 M.modeline = function()
-    local content = M.config.prefix .. ':'
-    local separator = (M.config.style == 'set' and ' ' or config.separator)
-    if M.config.add_space then
-        content = content .. ' '
-    end
+    local separator = (M.config.style == 'set' and ' ' or M.config.separator)
+    local content = M.config.prefix .. ':' .. spacer(M.config)
+
     if M.config.style == 'set' then
         content = content .. 'set '
     end

@@ -24,7 +24,7 @@ describe('modeline', function()
     end)
 
     it('creates a custom modeline', function()
-        local config = vim.tbl_deep_extend('force', defaults, { include = { opts = { 'sts' }, flags = { 'ai' } } });
+        local config = vim.tbl_deep_extend('force', defaults, { include = { opts = { 'sts' }, flags = { 'ai' } } })
         local module = require('tiny-modeline.module').setup(config)
 
         local test_buf = get_test_buffer()
@@ -33,4 +33,17 @@ describe('modeline', function()
             assert(module.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
         end)
     end)
+
+    it('creates the other style', function()
+        local config = vim.tbl_deep_extend('force', defaults, { style = 'separated', separator = ':' })
+        local module = require('tiny-modeline.module').setup(config)
+
+        local test_buf = get_test_buffer()
+        vim.api.nvim_buf_call(test_buf, function()
+            local compare_line = '-- vim:et:ts=4:sw=4:tw=80:'
+            assert(module.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
+        end)
+
+    end)
+
 end)

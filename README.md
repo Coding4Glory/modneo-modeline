@@ -1,6 +1,7 @@
 # tiny.nvim modeline
 
-A simple plugin to add and update modelines
+A simple plugin to add and update modelines with settings
+from current buffer.
 
 ## Setup 🚀 and Configuration ⚙
 
@@ -29,29 +30,28 @@ return { "Coding4Glory/tiny-modeline.nvim",
 }
 ```
 
-<!-- panvimdoc-ignore-start -->
-
 ## Commands ⌨
 
-- `:ModelineAppend[!]`: appens the mode line if missing. If bang is present a modeline will be added regardless of existing regarless of existing
-- `:ModelineUpdate`: replaces exising or appends a new modline
+```vimdoc
+                                                   *tiny-modeline.nvim-append*
+:ModelineAppend[!]     Appends the modeline if missing. If bang is present a
+                       modeline will be added regardless of an existing
 
-<!-- panvimdoc-ignore-end -->
+:ModelineUpdate        Replaces existing or appends a new modeline with current
+                       settings
+```
 
-<!-- panvimdoc-include-comment
+## Known Issues ⚡
 
-:ModelineAppend[!]
+Checks only the last line. Will fail or cause unexpected behaviour
+in following situation (which are supported by vim/neovim):
 
-: Appends the modeline if missing.
-If bang is present a modeline will be added regardless of existing
-
-:ModelineUpdate
-
-: Replaces existing or appends a new modeline with current settings
-
--->
+- Last line is an empty line after modeline
+- Modeline is at the top of the file. Allowed by spec, but not seen in the wild.
 
 ## Contribution 🤜🤛
 
-There is not really somthing to add, but maybe something to optimize or fix. If you think you found something, you might add a PR. But don't be sad if it's not accepted. The module is meant be tiny 😉.
+There is not really somthing to add, but maybe something to optimize or fix.
+If you think you found something, you might add a PR. But don't be sad if
+it's not accepted. The module is meant be tiny 😉.
 

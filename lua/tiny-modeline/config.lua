@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
 ---@class TinyModelineConfig
+---@field config TinyModelineSettings
 local M = {}
 
 ---@class TinyModelineSettings
@@ -54,15 +55,12 @@ local defaults = {
     add_default_keybindings = true,
 }
 
----@type TinyModelineSettings
-M.config = defaults
-
 ---@type function
 ---initializes the configuration and applies usersettings
 ---@param args TinyModelineSettings?
 ---@return TinyModelineSettings
 M.init = function(args)
-    M.config = vim.tbl_deep_extend('force', M.config, args or {})
+    M.config = vim.tbl_deep_extend('force', defaults, M.config or {}, args or {})
     return M.config
 end
 
