@@ -16,8 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
----@class TinyModelineModule
----@field config TinyModelineSettings
+---@class TinyModeline
+---@field config TinyModelineOptions
 local M = {}
 
 ---@type function
@@ -60,7 +60,7 @@ M.has_modeline = function()
 end
 
 ---checks if a space can or shall be added
----@param config TinyModelineSettings
+---@param config TinyModelineOptions
 ---@return string either a space or an empty string
 local function spacer(config)
     if config.style ~= 'set' then return '' end
@@ -91,10 +91,10 @@ end
 
 ---@type function
 ---Applies the configuration and returns the module
----@param opts TinyModelineSettings
----@return TinyModelineModule
-M.setup = function(opts)
-    M.config = opts
+---@param opts TinyModelineOptions
+---@return TinyModeline
+M.init = function()
+    M.config = require('tiny-modeline.config').config
     return M
 end
 

@@ -17,10 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
 ---@class TinyModelineConfig
----@field config TinyModelineSettings
+---@field config TinyModelineOptions
 local M = {}
 
----@class TinyModelineSettings
+---@class TinyModelineOptions
 local defaults = {
     ---@type string
     ---the modeline style, can be separated (first form from help) and set (second form from help)
@@ -61,10 +61,10 @@ local defaults = {
 
 ---@type function
 ---initializes the configuration and applies usersettings
----@param args TinyModelineSettings?
----@return TinyModelineSettings
+---@param args TinyModelineOptions?
+---@return TinyModelineOptions
 M.init = function(args)
-    M.config = vim.tbl_deep_extend('force', defaults, M.config or {}, args or {})
+    M.config = vim.tbl_deep_extend('force', defaults, args or {})
     return M.config
 end
 

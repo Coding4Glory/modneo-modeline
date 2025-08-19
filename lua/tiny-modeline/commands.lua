@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 local M = {}
 
 ---Creates the user commands and default key bindings
----@param modeline TinyModelineModule
+---@param modeline TinyModeline
 M.setup = function(modeline)
     vim.api.nvim_create_user_command('ModelineAppend', function(opts)
         modeline.append(opts.bang)

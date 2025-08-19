@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---@field setup function
 return {
     ---initializes the module
-    ---@param opts TinyModelineSettings
+    ---@param opts TinyModelineOptions
     setup = function(opts)
         local config = require('tiny-modeline.config').init(opts)
         local modeline = require('tiny-modeline.module').setup(config)
