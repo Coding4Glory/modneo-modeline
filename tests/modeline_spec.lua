@@ -1,10 +1,10 @@
-local defaults = require('tiny-modeline.config').init()
+local module = require("tiny-modeline.module")
 -- require('plenary.busted') -- not required but nice for auto completion
 
 local function get_test_buffer()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_set_current_buf(buf)
-    vim.bo.commentstring = '-- %s'
+    vim.bo.commentstring = "-- %s"
     vim.bo.ts = 4
     vim.bo.sw = 4
     vim.bo.tw = 80
@@ -12,38 +12,40 @@ local function get_test_buffer()
     return buf
 end
 
-describe('modeline', function()
-    it('creates the default modeline', function()
-        local module = require('tiny-modeline.module').setup(defaults)
 
+
+describe("modeline", function()
+    it("creates the default modeline", function()
+        require("tiny-modeline.config").setup()
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()
-            local compare_line = '-- vim: set et ts=4 sw=4 tw=80:'
-            assert(module.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
+            local compare_line = "-- vim: set et ts=4 sw=4 tw=80:"
+            local sut = module.init()
+            assert(sut.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
         end)
     end)
 
-    it('creates a custom modeline', function()
-        local config = vim.tbl_deep_extend('force', defaults, { include = { opts = { 'sts' }, flags = { 'ai' } } })
-        local module = require('tiny-modeline.module').setup(config)
+    it("creates a custom modeline", function()
+        local config = { include = { opts = { "sts" }, flags = { "ai" } } }
+        require("tiny-modeline.config").setup(config)
 
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()
-            local compare_line = '-- vim: set ai sts=0:'
-            assert(module.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
+            local compare_line = "-- vim: set ai sts=0:"
+            local sut = module.init()
+            assert(sut.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
         end)
     end)
 
-    it('creates the other style', function()
-        local config = vim.tbl_deep_extend('force', defaults, { style = 'separated', separator = ':' })
-        local module = require('tiny-modeline.module').setup(config)
+    it("creates the other style", function()
+        local config = { style = "separated", separator = ":" }
+        require("tiny-modeline.config").setup(config)
 
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()
-            local compare_line = '-- vim:et:ts=4:sw=4:tw=80:'
-            assert(module.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
+            local compare_line = "-- vim:et:ts=4:sw=4:tw=80:"
+            local sut = module.init()
+            assert(sut.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
         end)
-
     end)
-
 end)

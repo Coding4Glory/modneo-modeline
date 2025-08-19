@@ -22,8 +22,8 @@ return {
     ---initializes the module
     ---@param opts TinyModelineOptions
     setup = function(opts)
-        local config = require('tiny-modeline.config').init(opts)
-        local modeline = require('tiny-modeline.module').setup(config)
+        local config = require('tiny-modeline.config').setup(opts)
+        local modeline = require('tiny-modeline.module').init()
         require('tiny-modeline.commands').setup(modeline)
     end,
 }

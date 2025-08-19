@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
 ---@class TinyModelineConfig
----@field config TinyModelineOptions
+---@field options TinyModelineOptions
 local M = {}
 
 ---@class TinyModelineOptions
@@ -63,9 +63,9 @@ local defaults = {
 ---initializes the configuration and applies usersettings
 ---@param args TinyModelineOptions?
 ---@return TinyModelineOptions
-M.init = function(args)
-    M.config = vim.tbl_deep_extend('force', defaults, args or {})
-    return M.config
+M.setup = function(args)
+    M.options = vim.tbl_deep_extend('force', defaults, args or {})
+    return M.options
 end
 
 return M

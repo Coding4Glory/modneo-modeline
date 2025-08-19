@@ -38,7 +38,7 @@ M.setup = function(modeline)
         end
     end, { desc = 'checks if modeline is present' })
 
-    if modeline.config.add_default_keybindings then
+    if modeline.options.add_default_keybindings then
         local function add_keymap(keys, cmd, desc)
             vim.api.nvim_set_keymap('n', keys, cmd, { noremap = true, silent = true, desc = desc })
         end
@@ -46,7 +46,7 @@ M.setup = function(modeline)
         add_keymap('<leader>mu', ':ModelineUpdate<CR>', 'modeline update')
     end
 
-    if modeline.config.update_on_write then
+    if modeline.options.update_on_write then
         vim.api.nvim_create_autocmd("BufWrite",
             {
                 pattern = '*.*',

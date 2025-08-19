@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
 ---@class TinyModeline
----@field config TinyModelineOptions
+---@field options TinyModelineOptions
 local M = {}
 
 ---@type function
@@ -54,7 +54,7 @@ end
 ---gets a value indicating if the file has a mode line
 M.has_modeline = function()
     local last_line = vim.fn.getline(vim.fn.line('$'))
-    local compare_str = vim.fn.substitute(vim.bo.commentstring, "%s", M.config.prefix, '')
+    local compare_str = vim.fn.substitute(vim.bo.commentstring, "%s", M.options.prefix, '')
     compare_str = string.sub(compare_str, 0, string.find(compare_str, ':', 2))
     return vim.startswith(last_line, compare_str)
 end
@@ -70,16 +70,16 @@ end
 ---@type function
 ---@return string the modeline content
 M.modeline = function()
-    local separator = (M.config.style == 'set' and ' ' or M.config.separator)
-    local content = M.config.prefix .. ':' .. spacer(M.config)
+    local separator = (M.options.style == 'set' and ' ' or M.options.separator)
+    local content = M.options.prefix .. ':' .. spacer(M.options)
 
-    if M.config.style == 'set' then
+    if M.options.style == 'set' then
         content = content .. 'set '
     end
-    for _, o in ipairs(M.config.include.flags) do
+    for _, o in ipairs(M.options.include.flags) do
         content = content .. vim.fn.printf("%s%s%s", (vim.bo[o] and '' or 'no'), o, separator)
     end
-    for _, o in ipairs(M.config.include.opts) do
+    for _, o in ipairs(M.options.include.opts) do
         content = content .. vim.fn.printf("%s=%d%s", o, vim.bo[o], separator)
     end
     if not vim.endswith(content, ':') then
@@ -94,7 +94,7 @@ end
 ---@param opts TinyModelineOptions
 ---@return TinyModeline
 M.init = function()
-    M.config = require('tiny-modeline.config').config
+    M.options = require('tiny-modeline.config').options
     return M
 end
 
