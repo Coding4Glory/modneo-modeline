@@ -1,6 +1,6 @@
-# tiny.nvim modeline
+# modneo-modeline
 
-A simple plugin to add and update modelines with settings
+A tiny plugin to add and update modelines with settings
 from current buffer.
 
 ## Setup 🚀 and Configuration ⚙
@@ -8,7 +8,7 @@ from current buffer.
 Setup with Lazy
 
 ```lua
-return { "Coding4Glory/tiny-modeline.nvim",
+return { "Coding4Glory/modneo-modeline.nvim",
     -- default settings, for defaults set an empty table `{}`
     opts = {
         style = 'set',
@@ -34,11 +34,11 @@ return { "Coding4Glory/tiny-modeline.nvim",
 ## Commands ⌨
 
 ```vimdoc
-                                                   *tiny-modeline.nvim-append*
+                                                   *modneo-modeline-append*
 :ModelineAppend[!]     Appends the modeline if missing. If bang is present a
                        modeline will be added regardless of an existing
 
-                                                   *tiny-modeline.nvim-update*
+                                                   *modneo-modeline-update*
 :ModelineUpdate        Replaces existing or appends a new modeline with current
                        settings
 ```
@@ -53,7 +53,4 @@ in following situation (which are supported by vim/neovim):
 
 ## Contribution 🤜🤛
 
-There is not really somthing to add, but maybe something to optimize or fix.
-If you think you found something, you might add a PR. But don't be sad if
-it's not accepted. The module is meant be tiny 😉.
-
+Rules to be set up

@@ -1,5 +1,5 @@
 --[[
-tiny-modeline.nvim
+modneo-modeline
 Copyright (C) 2025  Markus Hergenröder <markus@coding4glory.net>
 
 This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
----@class TinyModelineSetup
----@field setup function
+---@class Modneo.ModelinePlugin
 return {
     ---initializes the module
-    ---@param opts TinyModelineOptions
+    ---@param opts Modneo.Modeline.Options
     setup = function(opts)
         local config = require('tiny-modeline.config').setup(opts)
         local modeline = require('tiny-modeline.module').init()
@@ -28,4 +27,4 @@ return {
     end,
 }
 
--- vim: set et ts=4 sw=4 tw=0:
+-- vim: set et ts=4 sw=4 tw=78:

@@ -1,5 +1,5 @@
 --[[
-tiny-modeline.nvim
+modneo-modeline
 Copyright (C) 2025  Markus Hergenröder <markus@coding4glory.net>
 
 This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
----@class TinyModelineCommands
+---@class Modneo.Modeline.Commands
 local M = {}
 
 ---Creates the user commands and default key bindings
----@param modeline TinyModeline
+---@param modeline Modneo.Modeline
 M.setup = function(modeline)
     vim.api.nvim_create_user_command('ModelineAppend', function(opts)
         modeline.append(opts.bang)
@@ -60,4 +60,4 @@ end
 
 return M
 
--- vim: set et ts=4 sw=4 tw=0:
+-- vim: set et ts=4 sw=4 tw=78:

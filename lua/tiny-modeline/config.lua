@@ -1,5 +1,5 @@
 --[[
-tiny-modeline.nvim
+modneo-modeline
 Copyright (C) 2025  Markus Hergenröder <markus@coding4glory.net>
 
 This program is free software: you can redistribute it and/or modify
@@ -16,32 +16,45 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
----@class TinyModelineConfig
----@field options TinyModelineOptions
+---@alias Modneo.Modeline.Separator
+---| ' ' a regular space aka blank
+---| ':' a regular colon
+
+---@alias Modneo.Modeline.Style
+---| 'separated' first style from help
+---| 'set' second style from help
+
+---@alias Modneo.Modeline.Prefix
+---| 'ex'
+---| 'vi'
+---| 'vim'
+
+---@class Modneo.Modeline.Config
+---@field options Modneo.Modeline.Options
 local M = {}
 
----@class TinyModelineOptions
+---@class Modneo.Modeline.Options
 local defaults = {
-    ---@type string
+    ---@type Modneo.Modeline.Style
     ---the modeline style, can be separated (first form from help) and set (second form from help)
 	style = 'set',
-    ---@type string
+    ---@type Modneo.Modeline.Separator
     ---the separator to use, either blank `' '` or colon `":"`. Default: blank
 	separator = ' ',
-    ---@type string
+    ---@type Modneo.Modeline.Prefix
     ---prefix string the prefix to use for the modeline, one of vi, vim or ex. Default: vim
 	prefix = 'vim',
-    ---@class TinyModelineSettings.include
+    ---@class Modneo.Modeline.Options.Include
     ---a table with opts and flags to include
 	include = {
-        ---@type table
+        ---@type string[]
         ---the list of options to include, use short forms
         opts = {
 	    	'ts',
     		'sw',
             'tw',
         },
-        ---@type table
+        ---@type string[]
         ---the list of flags to add, use short forms
         flags = {
             'et',
@@ -61,8 +74,8 @@ local defaults = {
 
 ---@type function
 ---initializes the configuration and applies usersettings
----@param args TinyModelineOptions?
----@return TinyModelineOptions
+---@param args Modneo.Modeline.Options?
+---@return Modneo.Modeline.Options
 M.setup = function(args)
     M.options = vim.tbl_deep_extend('force', defaults, args or {})
     return M.options
@@ -70,4 +83,4 @@ end
 
 return M
 
--- vim: set et ts=4 sw=4 tw=0:
+-- vim: set et ts=4 sw=4 tw=78:

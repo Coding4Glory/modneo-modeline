@@ -1,5 +1,5 @@
 --[[
-tiny-modeline.nvim
+modneo-modeline
 Copyright (C) 2025  Markus Hergenröder <markus@coding4glory.net>
 
 This program is free software: you can redistribute it and/or modify
@@ -16,11 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
----@class TinyModeline
----@field options TinyModelineOptions
+---@class Modneo.Modeline
+---@field options Modneo.Modeline.Options
 local M = {}
 
----@type function
 ---appends the modeline as last line if not existing
 ---@param force boolean? append regarless of existing modeline(s)
 M.append = function(force)
@@ -38,7 +37,6 @@ M.append = function(force)
     vim.fn.append(lastlineno, M.modeline())
 end
 
----@type function
 ---replaces the existing modeline with current settings or adds a new one
 M.update = function()
     if M.has_modeline() then
@@ -49,7 +47,6 @@ M.update = function()
     M.append(true)
 end
 
----@type function
 ---@return boolean true of a modeline exists, otherwise false
 ---gets a value indicating if the file has a mode line
 M.has_modeline = function()
@@ -60,14 +57,13 @@ M.has_modeline = function()
 end
 
 ---checks if a space can or shall be added
----@param config TinyModelineOptions
+---@param config Modneo.Modeline.Options
 ---@return string either a space or an empty string
 local function spacer(config)
     if config.style ~= 'set' then return '' end
     return (config.add_space and ' ' or '')
 end
 
----@type function
 ---@return string the modeline content
 M.modeline = function()
     local separator = (M.options.style == 'set' and ' ' or M.options.separator)
@@ -89,10 +85,8 @@ M.modeline = function()
     return vim.fn.substitute(vim.bo.commentstring, "%s", content, "")
 end
 
----@type function
 ---Applies the configuration and returns the module
----@param opts TinyModelineOptions
----@return TinyModeline
+---@return Modneo.Modeline
 M.init = function()
     M.options = require('tiny-modeline.config').options
     return M
@@ -100,4 +94,4 @@ end
 
 return M
 
--- vim: set et ts=4 sw=4 tw=0:
+-- vim: set et ts=4 sw=4 tw=78:
