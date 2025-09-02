@@ -21,9 +21,9 @@ return {
     ---initializes the module
     ---@param opts Modneo.Modeline.Options
     setup = function(opts)
-        local config = require('tiny-modeline.config').setup(opts)
-        local modeline = require('tiny-modeline.module').init()
-        require('tiny-modeline.commands').setup(modeline)
+        local config = require('modneo-modeline.config').setup(opts)
+        local modeline = require('modneo-modeline.module').init()
+        require('modneo-modeline.commands').setup(modeline)
     end,
 }
 

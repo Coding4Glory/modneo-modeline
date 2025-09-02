@@ -1,4 +1,4 @@
-local module = require("tiny-modeline.module")
+local module = require("modneo-modeline.module")
 -- require('plenary.busted') -- not required but nice for auto completion
 
 local function get_test_buffer()
@@ -16,7 +16,7 @@ end
 
 describe("modeline", function()
     it("creates the default modeline", function()
-        require("tiny-modeline.config").setup()
+        require("modneo-modeline.config").setup()
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()
             local compare_line = "-- vim: set et ts=4 sw=4 tw=80:"
@@ -27,7 +27,7 @@ describe("modeline", function()
 
     it("creates a custom modeline", function()
         local config = { include = { opts = { "sts" }, flags = { "ai" } } }
-        require("tiny-modeline.config").setup(config)
+        require("modneo-modeline.config").setup(config)
 
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()
@@ -39,7 +39,7 @@ describe("modeline", function()
 
     it("creates the other style", function()
         local config = { style = "separated", separator = ":" }
-        require("tiny-modeline.config").setup(config)
+        require("modneo-modeline.config").setup(config)
 
         local test_buf = get_test_buffer()
         vim.api.nvim_buf_call(test_buf, function()

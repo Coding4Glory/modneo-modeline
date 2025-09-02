@@ -88,7 +88,7 @@ end
 ---Applies the configuration and returns the module
 ---@return Modneo.Modeline
 M.init = function()
-    M.options = require('tiny-modeline.config').options
+    M.options = require('modneo-modeline.config').options
     return M
 end
 

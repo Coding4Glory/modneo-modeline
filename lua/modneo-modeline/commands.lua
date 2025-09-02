@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
+local augroup = 'modneo-modeline'
+
 ---@class Modneo.Modeline.Commands
 local M = {}
 
@@ -52,7 +54,7 @@ M.setup = function(modeline)
                 pattern = '*.*',
                 command = 'ModelineUpdate',
                 desc = 'update modline on write',
-                group = vim.api.nvim_create_augroup('tinymodeline_autoupdate', { clear = true })
+                group = vim.api.nvim_create_augroup(augroup, { clear = true })
             }
         )
     end
