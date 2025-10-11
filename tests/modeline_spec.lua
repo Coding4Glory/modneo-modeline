@@ -48,4 +48,13 @@ describe("modeline", function()
             assert(sut.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
         end)
     end)
+
+    it("create no modeline", function()
+        require("modneo-modeline").setup({})
+        local test_buf = get_test_buffer()
+        local empty = vim.fn.getline(1, '$')
+        vim.bo.commentstring = ""
+        vim.cmd("ModelineUpdate")
+        assert.same(empty, vim.fn.getline(1, '$'))
+    end)
 end)

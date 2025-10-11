@@ -73,16 +73,17 @@ M.modeline = function()
         content = content .. 'set '
     end
     for _, o in ipairs(M.options.include.flags) do
-        content = content .. vim.fn.printf("%s%s%s", (vim.bo[o] and '' or 'no'), o, separator)
+        content = content .. string.format("%s%s%s", (vim.bo[o] and '' or 'no'), o, separator)
     end
     for _, o in ipairs(M.options.include.opts) do
-        content = content .. vim.fn.printf("%s=%d%s", o, vim.bo[o], separator)
+        content = content .. string.format("%s=%d%s", o, vim.bo[o], separator)
     end
     if not vim.endswith(content, ':') then
         content = vim.fn.substitute(content, "\\s$", "", "")
         content = content .. ":"
     end
-    return vim.fn.substitute(vim.bo.commentstring, "%s", content, "")
+    local format = vim.bo.commentstring ~= "" and vim.bo.commentstring or "%s"
+    return string.format(format, content)
 end
 
 ---Applies the configuration and returns the module

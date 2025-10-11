@@ -25,10 +25,12 @@ local M = {}
 ---@param modeline Modneo.Modeline
 M.setup = function(modeline)
     vim.api.nvim_create_user_command('ModelineAppend', function(opts)
+        if vim.bo.commentstring == "" and not opts.bang then return end
         modeline.append(opts.bang)
     end, { desc = 'appends a new modeline regardless of existing', bang = true })
 
     vim.api.nvim_create_user_command('ModelineUpdate', function(opts)
+        if vim.bo.commentstring == "" and not opts.bang then return end
         modeline.update()
     end, { desc = 'Updates the current modeline or appends a new one' })
 
@@ -49,7 +51,7 @@ M.setup = function(modeline)
     end
 
     if modeline.options.update_on_write then
-        vim.api.nvim_create_autocmd("BufWrite",
+        vim.api.nvim_create_autocmd("BufWritePre",
             {
                 pattern = '*.*',
                 command = 'ModelineUpdate',

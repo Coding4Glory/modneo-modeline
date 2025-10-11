@@ -54,6 +54,9 @@ COMMANDS                           *modneo-modeline-modneo-modeline-commands-*
 :ModelineUpdate        Replaces existing or appends a new modeline with current
                        settings
 
+Both commands only work if the comment string is set in the current buffer.
+This can be overriden with bang.
+
 
 KNOWNISSUES                     *modneo-modeline-modneo-modeline-knownissues-*
 

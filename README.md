@@ -27,7 +27,7 @@ return { "Coding4Glory/modneo-modeline.nvim",
         add_space = true,
         add_default_keybindings = true,
         update_on_save = false,
-    } 
+    }
 }
 ```
 
@@ -39,9 +39,12 @@ return { "Coding4Glory/modneo-modeline.nvim",
                        modeline will be added regardless of an existing
 
                                                    *modneo-modeline-update*
-:ModelineUpdate        Replaces existing or appends a new modeline with current
+:ModelineUpdate[!]     Replaces existing or appends a new modeline with current
                        settings
 ```
+
+Both commands only work if the comment string is set in the current buffer.
+This can be overriden with bang.
 
 ## Known Issues ⚡
 
@@ -54,3 +57,5 @@ in following situation (which are supported by vim/neovim):
 ## Contribution 🤜🤛
 
 Rules to be set up
+
+<!-- vim: set et ts=4 sw=4 tw=78: -->
