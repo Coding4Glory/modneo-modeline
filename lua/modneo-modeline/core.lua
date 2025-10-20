@@ -51,9 +51,13 @@ end
 ---gets a value indicating if the file has a mode line
 M.has_modeline = function()
     local last_line = vim.fn.getline(vim.fn.line('$'))
-    local compare_str = vim.fn.substitute(vim.bo.commentstring, "%s", M.options.prefix, '')
-    compare_str = string.sub(compare_str, 0, string.find(compare_str, ':', 2))
-    return vim.startswith(last_line, compare_str)
+    local has_modeline = false
+    for _, p in ipairs({'ex', 'vi', 'vim'}) do
+        local compare_str = vim.fn.substitute(vim.bo.commentstring, "%s", p, '')
+        compare_str = string.sub(compare_str, 0, string.find(compare_str, ':', 2))
+        has_modeline = has_modeline or vim.startswith(last_line, compare_str)
+    end
+    return has_modeline
 end
 
 ---checks if a space can or shall be added
