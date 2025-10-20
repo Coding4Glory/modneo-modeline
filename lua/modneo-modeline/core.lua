@@ -60,6 +60,32 @@ M.has_modeline = function()
     return has_modeline
 end
 
+---Parses the given line, if no line is given the last line in the buffer is
+---parsed.
+---@param line string?
+---@return Modneo.Modeline.Options
+M.parse = function(line)
+    local function commented(p)
+        return string.format(vim.bo.commentstring, p)
+    end
+
+    line = line or vim.fn.getline(vim.fn.line('$'))
+    line = line:match(string.format(vim.bo.commentstring, '(.*)'))
+    local result = { opts = {}, flags = {}}
+    result.prefix = line:match('([^:]+).*')
+    result.style = line:match(result.prefix .. '[:%s]+(set)[:%s]') or 'separated'
+    for o in line:gmatch("(%w+)=") do
+        table.insert(result.opts, o)
+    end
+    line, _ = line:gsub("[:%s]%w+=[^:%s]*", "")
+    for f in line:gmatch("[:%s](%w+)") do
+        if f ~= 'set' then
+            table.insert(result.flags, f)
+        end
+    end
+    return result
+end
+
 ---checks if a space can or shall be added
 ---@param config Modneo.Modeline.Options
 ---@return string either a space or an empty string

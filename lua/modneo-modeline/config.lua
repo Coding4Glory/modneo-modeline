@@ -28,6 +28,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---| 'ex'
 ---| 'vi'
 ---| 'vim'
+---| 'Vim'
+
+---@alias Modneo.Modeline.Existing
+---| 'all' honor style and settings
+---| 'style' honor only style but own flags and opts
+---| 'settings' hornor flags and opts but replace style
 
 ---@class Modneo.Modeline.Config
 ---@field options Modneo.Modeline.Options
@@ -35,17 +41,17 @@ local M = {}
 
 ---@class Modneo.Modeline.Options
 local defaults = {
+    ---The modeline style, can be separated (first form from help) and set (second form from help)
     ---@type Modneo.Modeline.Style
-    ---the modeline style, can be separated (first form from help) and set (second form from help)
 	style = 'set',
+    ---The separator to use, either blank `' '` or colon `":"`. Default: blank
     ---@type Modneo.Modeline.Separator
-    ---the separator to use, either blank `' '` or colon `":"`. Default: blank
 	separator = ' ',
+    ---Prefix string the prefix to use for the modeline, one of vi, vim or ex. Default: vim
     ---@type Modneo.Modeline.Prefix
-    ---prefix string the prefix to use for the modeline, one of vi, vim or ex. Default: vim
 	prefix = 'vim',
+    ---A table with opts and flags to include.
     ---@class Modneo.Modeline.Options.Include
-    ---a table with opts and flags to include
 	include = {
         ---@type string[]
         ---the list of options to include, use short forms
@@ -60,19 +66,22 @@ local defaults = {
             'et',
         }
 	},
+    ---Add optional spaces where possible, Default: true
     ---@type boolean
-    ---add optional spaces where possible, Default: true
 	add_space = true,
+    ---Defines whether to add default keybindings. Default: true
     ---@type boolean
-    ---boolean Whether to add default keybindings. Default: true
     add_default_keybindings = true,
-    ---@type boolean
-    ---defines if the modeline shall be automatically updated on save
+    ---Defines if the modeline shall be automatically updated on save.
     ---Default: false
+    ---@type boolean
     update_on_write = false,
+    ---Setting to define how existing modelines shall be handled.
+    ---Actual *values* will always be taken from current buffer.
+    ---@type Modneo.Modeline.Existing
+    honor_existing = 'all',
 }
 
----@type function
 ---initializes the configuration and applies usersettings
 ---@param args Modneo.Modeline.Options?
 ---@return Modneo.Modeline.Options
