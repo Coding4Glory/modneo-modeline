@@ -48,15 +48,15 @@ local defaults = {
     ---A table with opts and flags to include.
     ---@class Modneo.Modeline.Options.Include
 	include = {
-        ---@type string[]
         ---the list of options to include, use short forms
+        ---@type string[]
         opts = {
 	    	'ts',
     		'sw',
             'tw',
         },
-        ---@type string[]
         ---the list of flags to add, use short forms
+        ---@type string[]
         flags = {
             'et',
         }

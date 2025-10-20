@@ -33,7 +33,7 @@ describe("modeline", function()
         vim.api.nvim_buf_call(test_buf, function()
             local compare_line = "-- vim: set ai sts=0:"
             local sut = module.init()
-            assert(sut.modeline() == compare_line, '"' .. compare_line .. '" not equal "' .. module.modeline() .. '"')
+            assert.are_equal(compare_line, sut.modeline())
         end)
     end)
 
