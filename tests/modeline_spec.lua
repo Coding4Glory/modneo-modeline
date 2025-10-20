@@ -1,4 +1,4 @@
-local module = require("modneo-modeline.module")
+local module = require("modneo-modeline.core")
 -- require('plenary.busted') -- not required but nice for auto completion
 
 local function get_test_buffer()
@@ -56,5 +56,15 @@ describe("modeline", function()
         vim.bo.commentstring = ""
         vim.cmd("ModelineUpdate")
         assert.same(empty, vim.fn.getline(1, '$'))
+    end)
+
+    it("hornors existing", function()
+        vim.cmd("edit tests/with_modeline.lua")
+        vim.fn.setline(1, '')
+        vim.fn.setline(2, '-- ex:noet:ts=8:sts=4')
+        require("modneo-modeline").setup({})
+        vim.cmd("ModelineUpdate")
+        local modeline = vim.fn.getline(vim.fn.line('$'))
+        assert.is_match("^-- ex:et:ts=%d:sts=%d:$", modeline)
     end)
 end)

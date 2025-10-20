@@ -30,11 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ---| 'vim'
 ---| 'Vim'
 
----@alias Modneo.Modeline.Existing
----| 'all' honor style and settings
----| 'style' honor only style but own flags and opts
----| 'settings' hornor flags and opts but replace style
-
 ---@class Modneo.Modeline.Config
 ---@field options Modneo.Modeline.Options
 local M = {}
@@ -76,10 +71,9 @@ local defaults = {
     ---Default: false
     ---@type boolean
     update_on_write = false,
-    ---Setting to define how existing modelines shall be handled.
-    ---Actual *values* will always be taken from current buffer.
-    ---@type Modneo.Modeline.Existing
-    honor_existing = 'all',
+    ---Setting to define if the format of existing modelines shall be kept
+    ---@type boolean
+    honor_existing = true,
 }
 
 ---initializes the configuration and applies usersettings

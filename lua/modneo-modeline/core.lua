@@ -65,18 +65,30 @@ end
 ---@param line string?
 ---@return Modneo.Modeline.Options
 M.parse = function(line)
+    local function separator_by_count(line)
+        local colon, space = 0, 0
+        for x in line:gmatch('[:%s]') do
+            if x == ':' then colon = colon + 1
+            else
+                space = space + 1
+            end
+        end
+        return (colon > space and ':' or ' ')
+    end
+
     line = line or vim.fn.getline(vim.fn.line('$'))
     line = line:match(string.format(vim.bo.commentstring, '(.*)'))
-    local result = { opts = {}, flags = {}}
+    local result = { include = { opts = {}, flags = {} } }
     result.prefix = line:match('([^:]+).*')
     result.style = line:match(result.prefix .. '[:%s]+(set)[:%s]') or 'separated'
-    for o in line:gmatch("(%w+)=") do
-        table.insert(result.opts, o)
+    result.separator = separator_by_count(line)
+    for o in line:gmatch('(%w+)=') do
+        table.insert(result.include.opts, o)
     end
-    line, _ = line:gsub("[:%s]%w+=[^:%s]*", "")
-    for f in line:gmatch("[:%s](%w+)") do
+    line, _ = line:gsub('[:%s]%w+=[^:%s]*', '')
+    for f in line:gmatch('[:%s]n?o?(%w+)') do
         if f ~= 'set' then
-            table.insert(result.flags, f)
+            table.insert(result.include.flags, f)
         end
     end
     return result
@@ -94,17 +106,17 @@ end
 ---@param opts Modneo.Modeline.Options? options may be passed to override settings
 ---@return string the modeline content
 M.modeline = function(opts)
-    local options = vim.tbl_deep_extend('force', M.options, opts or {})
+    local options = opts or M.options
     local separator = (options.style == 'set' and ' ' or options.separator)
     local content = options.prefix .. ':' .. spacer(options)
 
     if options.style == 'set' then
         content = content .. 'set '
     end
-    for _, o in ipairs(M.options.include.flags) do
+    for _, o in ipairs(options.include.flags) do
         content = content .. string.format("%s%s%s", (vim.bo[o] and '' or 'no'), o, separator)
     end
-    for _, o in ipairs(M.options.include.opts) do
+    for _, o in ipairs(options.include.opts) do
         content = content .. string.format("%s=%d%s", o, vim.bo[o], separator)
     end
     if not vim.endswith(content, ':') then
