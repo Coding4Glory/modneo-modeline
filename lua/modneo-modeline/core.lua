@@ -23,7 +23,6 @@ local M = {}
 ---appends the modeline as last line if not existing
 ---@param force boolean? append regarless of existing modeline(s)
 M.append = function(force)
-    -- don't append next modeline
     if not (force or false) and M.has_modeline then
         return
     end
@@ -40,7 +39,8 @@ end
 ---replaces the existing modeline with current settings or adds a new one
 M.update = function()
     if M.has_modeline() then
-        vim.fn.setline(vim.fn.line('$'), M.modeline())
+        local opts = (M.options.honor_existing and M.parse() or {})
+        vim.fn.setline(vim.fn.line('$'), M.modeline(opts))
         return
     end
     -- pass true to bypass redudannt check
@@ -65,10 +65,6 @@ end
 ---@param line string?
 ---@return Modneo.Modeline.Options
 M.parse = function(line)
-    local function commented(p)
-        return string.format(vim.bo.commentstring, p)
-    end
-
     line = line or vim.fn.getline(vim.fn.line('$'))
     line = line:match(string.format(vim.bo.commentstring, '(.*)'))
     local result = { opts = {}, flags = {}}
@@ -94,12 +90,15 @@ local function spacer(config)
     return (config.add_space and ' ' or '')
 end
 
+---creates and returns the modeline string
+---@param opts Modneo.Modeline.Options? options may be passed to override settings
 ---@return string the modeline content
-M.modeline = function()
-    local separator = (M.options.style == 'set' and ' ' or M.options.separator)
-    local content = M.options.prefix .. ':' .. spacer(M.options)
+M.modeline = function(opts)
+    local options = vim.tbl_deep_extend('force', M.options, opts or {})
+    local separator = (options.style == 'set' and ' ' or options.separator)
+    local content = options.prefix .. ':' .. spacer(options)
 
-    if M.options.style == 'set' then
+    if options.style == 'set' then
         content = content .. 'set '
     end
     for _, o in ipairs(M.options.include.flags) do
